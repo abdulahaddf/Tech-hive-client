@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
-import DynamicAttributes from "../../components/Form/DynamicFields";
-import { TextInput } from "../../components/Form/Warper";
+import { RadioButton, TextInput } from "../../components/Form/Warper";
 
 const DataInput = () => {
   const { register, handleSubmit, control } = useForm();
@@ -70,6 +69,7 @@ const DataInput = () => {
             register={register("body.waterproof")}
             placeholder="Waterproof"
           />
+
           <TextInput
             label="Ruggedness"
             register={register("body.ruggedness")}
@@ -80,15 +80,31 @@ const DataInput = () => {
         {/* Chip */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Chip</legend>
-          <TextInput label="OS" register={register("chip.os")} placeholder="OS" />
-          <TextInput label="UI" register={register("chip.ui")} placeholder="UI" />
+          <TextInput
+            label="OS"
+            register={register("chip.os")}
+            placeholder="OS"
+          />
+          <TextInput
+            label="UI"
+            register={register("chip.ui")}
+            placeholder="UI"
+          />
           <TextInput
             label="Chipset"
             register={register("chip.chipset")}
             placeholder="Chipset"
           />
-          <TextInput label="CPU" register={register("chip.cpu")} placeholder="CPU" />
-          <TextInput label="GPU" register={register("chip.gpu")} placeholder="GPU" />
+          <TextInput
+            label="CPU"
+            register={register("chip.cpu")}
+            placeholder="CPU"
+          />
+          <TextInput
+            label="GPU"
+            register={register("chip.gpu")}
+            placeholder="GPU"
+          />
         </fieldset>
 
         {/* Network */}
@@ -100,10 +116,26 @@ const DataInput = () => {
             register={register("network.sim")}
             placeholder="SIM"
           />
-          <TextInput label="2G" register={register("network.2g")} placeholder="2G" />
-          <TextInput label="3G" register={register("network.3g")} placeholder="3G" />
-          <TextInput label="4G" register={register("network.4g")} placeholder="4G" />
-          <TextInput label="5G" register={register("network.5g")} placeholder="5G" />
+          <TextInput
+            label="2G"
+            register={register("network.2g")}
+            placeholder="2G"
+          />
+          <TextInput
+            label="3G"
+            register={register("network.3g")}
+            placeholder="3G"
+          />
+          <TextInput
+            label="4G"
+            register={register("network.4g")}
+            placeholder="4G"
+          />
+          <TextInput
+            label="5G"
+            register={register("network.5g")}
+            placeholder="5G"
+          />
         </fieldset>
 
         {/* main camera */}
@@ -229,10 +261,10 @@ const DataInput = () => {
         {/* Storage */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Storage</legend>
-          <TextInput
+         
+            <RadioButton
             label="Expandable Memory"
             register={register("storage.expandableMemory")}
-            placeholder="Expandable Memory"
           />
           <TextInput
             label="Internal Memory"
@@ -277,10 +309,10 @@ const DataInput = () => {
             register={register("connectivity.location")}
             placeholder="Location"
           />
-          <TextInput
+         
+          <RadioButton
             label="Radio"
             register={register("connectivity.radio")}
-            placeholder="Radio"
           />
           <TextInput
             label="USB"
@@ -292,16 +324,9 @@ const DataInput = () => {
             register={register("connectivity.infrared")}
             placeholder="Infrared port"
           />
-          <TextInput
-            label="NFC"
-            register={register("connectivity.nfc")}
-            placeholder="NFC"
-          />
-          <TextInput
-            label="OTG"
-            register={register("connectivity.otg")}
-            placeholder="OTG"
-          />
+
+          <RadioButton label="NFC" register={register("connectivity.nfc")} />
+          <RadioButton label="OTG" register={register("connectivity.otg")} />
         </fieldset>
         {/* Sound */}
         <fieldset className="mb-8">
@@ -311,10 +336,10 @@ const DataInput = () => {
             register={register("sound.loudspeaker")}
             placeholder="Loudspeaker"
           />
-          <TextInput
+
+          <RadioButton
             label="3.5mm jack"
-            register={register("sound.jack")}
-            placeholder="3.5mm jack"
+            register={register("connectivity.jack")}
           />
           <TextInput
             label="Audio Jack"
