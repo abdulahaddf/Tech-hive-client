@@ -28,7 +28,7 @@ const DriveLinkConverter = () => {
   return (
     <div className="my-2 ">
       <button
-        className="border-2 border-black font-semibold px-2 rounded-md flex justify-end hover:bg-black hover:text-white "
+        className="border-2 border-black font-semibold px-2 rounded-md flex justify-end hover:bg-black hover:text-white  "
         onClick={() => document.getElementById("mym").showModal()}
       >
         Drive Converter
