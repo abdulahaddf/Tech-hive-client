@@ -1,24 +1,28 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import DriveLinkConverter from "../../components/Converter/DriveLinkConverter";
+import AddVariant from "../../components/Form/AddVarients";
 import MobileSelector from "../../components/Form/MobileSelector";
 import { RadioButton, TextInput } from "../../components/Form/Warper";
-import AddVariant from "../../components/Form/AddVarients";
-import { useState } from "react";
 
 const DataInput = () => {
-    const [variants, setVariants] = useState([
-        { variant: "", rupee: "", dollar: "", pound: "", euro: "" },
-      ]);
+  const [variants, setVariants] = useState([
+    { variant: "", rupee: "", dollar: "", pound: "", euro: "" },
+  ]);
   const { register, handleSubmit, control } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
+
     try {
-      fetch("http://localhost:5000/phonex", {
+      const formData = { ...data, variants };
+
+      console.log(formData);
+      fetch("https://tech-server-vho67r390-abdulahaddf.vercel.app/phone", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       })
         .then((res) => res.json())
         .then((result) => {
@@ -26,8 +30,13 @@ const DataInput = () => {
           if (result.acknowledged) {
             Swal.fire("Your Toy has been successfully added");
           }
+          else{
+              Swal.error("Something Went Wrong")
+
+          }
         });
     } catch (error) {
+        Swal.error("Something Went Wrong")
       console.log(error);
     }
   };
@@ -195,11 +204,11 @@ const DataInput = () => {
         {/* Storage */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Storage</legend>
-
-          <RadioButton
+          <TextInput label="Expandable Memory" register={register("storage.expandableMemory")} />
+          {/* <RadioButton
             label="Expandable Memory"
             register={register("storage.expandableMemory")}
-          />
+          /> */}
           <TextInput
             label="Internal Memory"
             register={register("storage.internalMemory")}
@@ -278,7 +287,7 @@ const DataInput = () => {
           <TextInput label="AnTuTu" register={register("tests.antutu")} />
           <TextInput label="GeekBench" register={register("tests.geekbench")} />
         </fieldset>
-        <AddVariant variants={variants} setVariants={setVariants}/>
+        <AddVariant variants={variants} setVariants={setVariants} />
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
