@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { brands, mobileModels } from "../../Data/Data";
 
 const MobileSelector = ({ registerBrand, registerModel }) => {
- 
-
-
-
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedModel, setSelectedModel] = useState("");
 
@@ -22,7 +18,7 @@ const MobileSelector = ({ registerBrand, registerModel }) => {
     <div className="flex flex-col items-center justify-center mb-10">
       {selectedModel && (
         <div>
-          <p className="text-xl">
+          <p className="text-4xl">
             You have selected:{" "}
             <span className="font-semibold">{selectedBrand}</span> -{" "}
             <span className="font-semibold">{selectedModel}</span>
@@ -30,7 +26,7 @@ const MobileSelector = ({ registerBrand, registerModel }) => {
         </div>
       )}
       <div className="mb-4">
-        <label htmlFor="brand" className="block mb-1">
+        <label htmlFor="brand" className="block text-2xl mb-4">
           Select a Brand:
         </label>
 
@@ -67,40 +63,14 @@ const MobileSelector = ({ registerBrand, registerModel }) => {
           </select>
         </div>
       )}
+      <p>
+        Total Model for this Brands : {mobileModels?.[selectedBrand]?.length || "0"}
+      </p>
     </div>
   );
 };
 
 export default MobileSelector;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import CreatableSelect from "react-select/creatable";
@@ -122,11 +92,11 @@ export default MobileSelector;
 //     //     setSelectedBrand(event.target.value);
 //     //     setSelectedModel("");
 //     //   };
-    
+
 //     const handleModelChange = (event) => {
 //         setSelectedModel(event.target.value);
 //     };
-    
+
 //     const handleSelectChange = (selectedOption) => {
 //         if (selectedOption) {
 //             console.log("Selected value:", selectedOption.value);

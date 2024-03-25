@@ -1,28 +1,66 @@
 import { useForm } from "react-hook-form";
-import {
-  OptionInput,
-  RadioButton,
-  TextInput,
-} from "../../components/Form/Warper";
-import MobileSelector from "../../components/Form/MobileSelector";
+import Swal from "sweetalert2";
 import DriveLinkConverter from "../../components/Converter/DriveLinkConverter";
+import MobileSelector from "../../components/Form/MobileSelector";
+import { RadioButton, TextInput } from "../../components/Form/Warper";
+import AddVariant from "../../components/Form/AddVarients";
+import { useState } from "react";
 
 const DataInput = () => {
+    const [variants, setVariants] = useState([
+        { variant: "", rupee: "", dollar: "", pound: "", euro: "" },
+      ]);
   const { register, handleSubmit, control } = useForm();
 
- 
-
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
+    try {
+      fetch("http://localhost:5000/phonex", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+          if (result.acknowledged) {
+            Swal.fire("Your Toy has been successfully added");
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-        <DriveLinkConverter/>
+      <DriveLinkConverter />
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-7xl mx-auto">
-        <MobileSelector registerBrand={register("brand")} registerModel={register("model")}/>
+        <MobileSelector
+          registerBrand={register("brand")}
+          registerModel={register("model")}
+        />
         {/* Image */}
-        <TextInput type="text" label="Image" register={register("image")} />
+        <p>
+          *(Upload the photo to Drive then convert the shared link with
+          converter)
+        </p>
+        <TextInput type="text" label="Image URL" register={register("image")} />
+        <TextInput
+          type="text"
+          label="2nd Image"
+          register={register("image2")}
+        />
+        <TextInput
+          type="text"
+          label="3rd Image"
+          register={register("image3")}
+        />
+        <TextInput
+          type="text"
+          label="4th Image"
+          register={register("image4")}
+        />
         {/* Launch */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Launch</legend>
@@ -38,9 +76,7 @@ const DataInput = () => {
             register={register("launch.released")}
           />
           <TextInput label="Models" register={register("launch.models")} />
-        
         </fieldset>
-
         {/* Body */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Body</legend>
@@ -61,7 +97,6 @@ const DataInput = () => {
             register={register("body.ruggedness")}
           />
         </fieldset>
-
         {/* Chip */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Chip</legend>
@@ -71,9 +106,7 @@ const DataInput = () => {
           <TextInput label="CPU" register={register("chip.cpu")} />
           <TextInput label="GPU" register={register("chip.gpu")} />
         </fieldset>
-
         {/* Network */}
-
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Network</legend>
           <TextInput label="SIM" register={register("network.sim")} />
@@ -82,7 +115,6 @@ const DataInput = () => {
           <TextInput label="4G" register={register("network.4g")} />
           <TextInput label="5G" register={register("network.5g")} />
         </fieldset>
-
         {/* main camera */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Main Camera</legend>
@@ -126,7 +158,6 @@ const DataInput = () => {
             register={register("mainCamera.recordingFeatures")}
           />
         </fieldset>
-
         {/* Selfie Camera */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">
@@ -247,7 +278,7 @@ const DataInput = () => {
           <TextInput label="AnTuTu" register={register("tests.antutu")} />
           <TextInput label="GeekBench" register={register("tests.geekbench")} />
         </fieldset>
-
+        <AddVariant variants={variants} setVariants={setVariants}/>
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { useForm, useFieldArray, Controller } from "react-hook-form";
+/* eslint-disable react/prop-types */
 
-const RAM_OPTIONS = ["4GB", "6GB", "8GB"];
-const STORAGE_OPTIONS = ["64GB", "128GB", "256GB"];
+const RAM_OPTIONS = ["4GB", "6GB", "8GB", "12GB", "16GB"];
+const STORAGE_OPTIONS = ["64GB", "128GB", "256GB", "512GB", "1TB"];
 
 const generateMobileVariants = () => {
   const mobileVariants = [];
@@ -15,17 +14,7 @@ const generateMobileVariants = () => {
 };
 const mobileVariants = generateMobileVariants();
 
-function MobileVariantForm() {
-  const { control, handleSubmit } = useForm();
-  const [variants, setVariants] = useState([
-    { variant: "", rupee: "", dollar: "", pound: "", euro: "" },
-  ]);
-
-  const onSubmit = (data) => {
-    console.log(variants);
-    // Handle form submission
-  };
-
+function AddVariant({ variants, setVariants }) {
   const handleVariantChange = (value, index, field) => {
     const updatedVariants = [...variants];
     updatedVariants[index][field] = value;
@@ -46,7 +35,7 @@ function MobileVariantForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto my-10">
       {variants.map((variant, index) => (
         <div key={index} className="mb-6">
           <label
@@ -172,8 +161,8 @@ function MobileVariantForm() {
       >
         Submit
       </button>
-    </form>
+    </div>
   );
 }
 
-export default MobileVariantForm;
+export default AddVariant;

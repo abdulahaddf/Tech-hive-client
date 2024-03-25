@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import HomePage from './pages/Home/HomePage'
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import HomePage from "./pages/Home/HomePage";
+import DemoForm from "./pages/Home/DemoForm";
 
 function App() {
-
   return (
     <>
-     <HomePage/>
+      <Routes>
+        <Route element={<HomePage />} path="/" exact />
+        <Route element={<DemoForm/>} path="/demo" exact />
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
