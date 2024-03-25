@@ -5,6 +5,7 @@ import {
   TextInput,
 } from "../../components/Form/Warper";
 import MobileSelector from "../../components/Form/MobileSelector";
+import DriveLinkConverter from "../../components/Converter/DriveLinkConverter";
 
 const DataInput = () => {
   const { register, handleSubmit, control } = useForm();
@@ -17,6 +18,7 @@ const DataInput = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+        <DriveLinkConverter/>
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-7xl mx-auto">
         <MobileSelector registerBrand={register("brand")} registerModel={register("model")}/>
         {/* Image */}

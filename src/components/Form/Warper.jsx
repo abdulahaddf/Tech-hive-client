@@ -65,7 +65,7 @@ const RadioButton = ({ label, register }) => {
   return (
     <div className="mb-4 flex  items-center gap-4">
       <label className="block text-sm font-bold mb-2 w-32">{label}</label>
-      <div className="flex items-center">
+      <div className="flex items-center ">
         <input
           type="radio"
           id={`${name}-yes`}
