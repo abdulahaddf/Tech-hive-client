@@ -32,7 +32,6 @@ const DataInput = () => {
           }
           else{
               Swal.error("Something Went Wrong")
-
           }
         });
     } catch (error) {
