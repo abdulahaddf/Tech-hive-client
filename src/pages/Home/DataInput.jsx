@@ -28,7 +28,7 @@ const DataInput = () => {
         .then((result) => {
           console.log(result);
           if (result.acknowledged) {
-            Swal.fire("Your Toy has been successfully added");
+            Swal.fire("Phone has been successfully added");
           }
           else{
               Swal.error("Something Went Wrong")

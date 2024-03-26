@@ -35,7 +35,7 @@ function AddVariant({ variants, setVariants }) {
   };
 
   return (
-    <div className="max-w-md mx-auto my-10">
+    <div className="max-w-md mx-auto my-10 mb-52">
       {variants.map((variant, index) => (
         <div key={index} className="mb-6">
           <label
@@ -152,15 +152,15 @@ function AddVariant({ variants, setVariants }) {
         onClick={handleAddVariant}
         className="mt-4 flex items-center gap-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-5"
       >
-        +
+        + Add variant
       </button>
 
-      <button
+      {/* <button
         type="submit"
         className="mt-4 flex items-center gap-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
       >
         Submit
-      </button>
+      </button> */}
     </div>
   );
 }
