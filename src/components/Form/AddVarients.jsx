@@ -1,20 +1,8 @@
 /* eslint-disable react/prop-types */
 
-const RAM_OPTIONS = ["1GB", "2GB", "3GB", "4GB", "6GB", "8GB", "12GB", "16GB"];
+const AddVariant = ({ variants, setVariants }) => {
+  const RAM_OPTIONS = ["1GB", "2GB", "3GB", "4GB", "6GB", "8GB", "12GB", "16GB"];
 const STORAGE_OPTIONS = ["32GB", "64GB", "128GB", "256GB", "512GB", "1TB"];
-
-// const generateMobileVariants = () => {
-//   const mobileVariants = [];
-//   for (const ram of RAM_OPTIONS) {
-//     for (const storage of STORAGE_OPTIONS) {
-//       mobileVariants.push(`${ram} RAM, ${storage} Storage`);
-//     }
-//   }
-//   return mobileVariants;
-// };
-// const mobileVariants = generateMobileVariants();
-
-function AddVariant({ variants, setVariants }) {
   const handleVariantChange = (value, index, field) => {
     const updatedVariants = [...variants];
     updatedVariants[index][field] = value;
@@ -24,7 +12,7 @@ function AddVariant({ variants, setVariants }) {
   const handleAddVariant = () => {
     setVariants([
       ...variants,
-      { variant: "", rupee: "", dollar: "", pound: "", euro: "" },
+      { ram: "", storage: "", rupee: "", dollar: "", pound: "", euro: "" },
     ]);
   };
 
@@ -39,43 +27,48 @@ function AddVariant({ variants, setVariants }) {
       {variants.map((variant, index) => (
         <div key={index} className="mb-6">
           <label
-            htmlFor={`variant${index}`}
-            className=" text-sm font-medium text-gray-700 w-32"
+            htmlFor={`ram${index}`}
+            className="text-sm font-medium text-gray-700 w-32"
           >
-            Select Variant:
+            Select RAM:
           </label>
           <select
-            id={`variant${index}`}
-            name={`variants[${index}].variant`}
+            id={`ram${index}`}
+            name={`variants[${index}].ram`}
             className="text-input"
-            value={variant.variant}
+            value={variant.ram}
             onChange={(e) =>
-              handleVariantChange(e.target.value, index, "variant")
+              handleVariantChange(e.target.value, index, "ram")
             }
           >
-            <option value="">Select Ram</option>
-            {RAM_OPTIONS.map((variantOption, idx) => (
-              <option key={idx} value={variantOption}>
-                {variantOption}
+            <option value="">Select RAM</option>
+            {RAM_OPTIONS.map((ramOption, idx) => (
+              <option key={idx} value={ramOption}>
+                {ramOption}
               </option>
-            
             ))}
           </select>
+
+          <label
+            htmlFor={`storage${index}`}
+            className="text-sm font-medium text-gray-700 w-32"
+          >
+            Select Storage:
+          </label>
           <select
-            id={`variant${index}`}
-            name={`variants[${index}].variant`}
+            id={`storage${index}`}
+            name={`variants[${index}].storage`}
             className="text-input"
-            value={variant.variant}
+            value={variant.storage}
             onChange={(e) =>
-              handleVariantChange(e.target.value, index, "variant")
+              handleVariantChange(e.target.value, index, "storage")
             }
           >
-           <option value="">Select Ram</option>
-            {STORAGE_OPTIONS.map((variantOption, idx) => (
-              <option key={idx} value={variantOption}>
-                {variantOption}
+            <option value="">Select Storage</option>
+            {STORAGE_OPTIONS.map((storageOption, idx) => (
+              <option key={idx} value={storageOption}>
+                {storageOption}
               </option>
-            
             ))}
           </select>
 
@@ -154,7 +147,6 @@ function AddVariant({ variants, setVariants }) {
               }
             />
           </div>
-
           <button
             type="button"
             onClick={() => handleRemoveVariant(index)}
@@ -172,15 +164,8 @@ function AddVariant({ variants, setVariants }) {
       >
         + Add variant
       </button>
-
-      {/* <button
-        type="submit"
-        className="mt-4 flex items-center gap-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-      >
-        Submit
-      </button> */}
     </div>
   );
-}
+};
 
 export default AddVariant;

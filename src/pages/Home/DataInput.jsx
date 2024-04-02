@@ -10,9 +10,11 @@ const DataInput = () => {
   const [variants, setVariants] = useState([
     { variant: "", rupee: "", dollar: "", pound: "", euro: "" },
   ]);
+  console.log(variants)
   const { register, handleSubmit, control } = useForm();
 
   const onSubmit = async (data) => {
+
     console.log(data);
 
     try {
