@@ -19,7 +19,7 @@ const DataInput = () => {
       const formData = { ...data, variants };
 
       console.log(formData);
-      fetch("https://tech-server-vho67r390-abdulahaddf.vercel.app/phone", {
+      fetch("https://tech-server-vho67r390-abdulahaddf.vercel.app/phonex", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

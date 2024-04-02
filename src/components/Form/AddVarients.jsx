@@ -1,18 +1,18 @@
 /* eslint-disable react/prop-types */
 
-const RAM_OPTIONS = ["4GB", "6GB", "8GB", "12GB", "16GB"];
-const STORAGE_OPTIONS = ["64GB", "128GB", "256GB", "512GB", "1TB"];
+const RAM_OPTIONS = ["1GB", "2GB", "3GB", "4GB", "6GB", "8GB", "12GB", "16GB"];
+const STORAGE_OPTIONS = ["32GB", "64GB", "128GB", "256GB", "512GB", "1TB"];
 
-const generateMobileVariants = () => {
-  const mobileVariants = [];
-  for (const ram of RAM_OPTIONS) {
-    for (const storage of STORAGE_OPTIONS) {
-      mobileVariants.push(`${ram} RAM, ${storage} Storage`);
-    }
-  }
-  return mobileVariants;
-};
-const mobileVariants = generateMobileVariants();
+// const generateMobileVariants = () => {
+//   const mobileVariants = [];
+//   for (const ram of RAM_OPTIONS) {
+//     for (const storage of STORAGE_OPTIONS) {
+//       mobileVariants.push(`${ram} RAM, ${storage} Storage`);
+//     }
+//   }
+//   return mobileVariants;
+// };
+// const mobileVariants = generateMobileVariants();
 
 function AddVariant({ variants, setVariants }) {
   const handleVariantChange = (value, index, field) => {
@@ -53,11 +53,29 @@ function AddVariant({ variants, setVariants }) {
               handleVariantChange(e.target.value, index, "variant")
             }
           >
-            <option value="">Select Variant</option>
-            {mobileVariants.map((variantOption, idx) => (
+            <option value="">Select Ram</option>
+            {RAM_OPTIONS.map((variantOption, idx) => (
               <option key={idx} value={variantOption}>
                 {variantOption}
               </option>
+            
+            ))}
+          </select>
+          <select
+            id={`variant${index}`}
+            name={`variants[${index}].variant`}
+            className="text-input"
+            value={variant.variant}
+            onChange={(e) =>
+              handleVariantChange(e.target.value, index, "variant")
+            }
+          >
+           <option value="">Select Ram</option>
+            {STORAGE_OPTIONS.map((variantOption, idx) => (
+              <option key={idx} value={variantOption}>
+                {variantOption}
+              </option>
+            
             ))}
           </select>
 
