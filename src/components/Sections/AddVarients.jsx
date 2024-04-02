@@ -1,8 +1,28 @@
 /* eslint-disable react/prop-types */
 
 const AddVariant = ({ variants, setVariants }) => {
-  const RAM_OPTIONS = ["1GB", "2GB", "3GB", "4GB", "6GB", "8GB", "12GB", "16GB"];
-const STORAGE_OPTIONS = ["32GB", "64GB", "128GB", "256GB", "512GB", "1TB"];
+  const RAM_OPTIONS = [
+    "512MB",
+    "1GB",
+    "2GB",
+    "3GB",
+    "4GB",
+    "6GB",
+    "8GB",
+    "12GB",
+    "16GB",
+    "20GB",
+  ];
+  const STORAGE_OPTIONS = [
+    "8GB",
+    "16GB",
+    "32GB",
+    "64GB",
+    "128GB",
+    "256GB",
+    "512GB",
+    "1TB",
+  ];
   const handleVariantChange = (value, index, field) => {
     const updatedVariants = [...variants];
     updatedVariants[index][field] = value;
@@ -37,9 +57,7 @@ const STORAGE_OPTIONS = ["32GB", "64GB", "128GB", "256GB", "512GB", "1TB"];
             name={`variants[${index}].ram`}
             className="text-input"
             value={variant.ram}
-            onChange={(e) =>
-              handleVariantChange(e.target.value, index, "ram")
-            }
+            onChange={(e) => handleVariantChange(e.target.value, index, "ram")}
           >
             <option value="">Select RAM</option>
             {RAM_OPTIONS.map((ramOption, idx) => (

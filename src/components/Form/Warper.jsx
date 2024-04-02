@@ -14,11 +14,12 @@ const TextInput = ({ label, register, ...rest }) => {
   );
 };
 
-const TextArea = ({ label, ...rest }) => {
+const TextArea = ({ label, register, ...rest }) => {
   return (
-    <div className="mb-4">
-      <label className="block text-sm font-bold mb-2">{label}</label>
+    <div className="mb-4 flex justify-center items-center gap-4">
+      <label className="block text-sm font-bold mb-2 w-32">{label}</label>
       <textarea
+        {...register}
         {...rest}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       />
@@ -45,8 +46,8 @@ const SelectInput = ({ label, options, ...rest }) => {
 };
 const OptionInput = ({ label, options, register }) => {
   return (
-    <div className="mb-4 flex justify-center items-center gap-4">
-      <label className="block text-sm font-bold mb-2 w-32">{label}</label>
+    <div className="mb-4 flex justify-center items-center gap-4 w-full">
+      <label className="block text-sm font-bold mb-2 w-36">{label}</label>
       <select
         {...register}
         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

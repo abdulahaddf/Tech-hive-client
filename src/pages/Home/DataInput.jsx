@@ -2,26 +2,27 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import DriveLinkConverter from "../../components/Converter/DriveLinkConverter";
-import AddVariant from "../../components/Form/AddVarients";
 import MobileSelector from "../../components/Form/MobileSelector";
-import { RadioButton, TextInput } from "../../components/Form/Warper";
+import { RadioButton, TextArea } from "../../components/Form/Warper";
+import AddVariant from "../../components/Sections/AddVarients";
+import ChipSection from "../../components/Sections/ChipSection";
+import NetworksSection from "../../components/Sections/NetworksSection";
 
 const DataInput = () => {
   const [variants, setVariants] = useState([
     { variant: "", rupee: "", dollar: "", pound: "", euro: "" },
   ]);
-  console.log(variants)
-  const { register, handleSubmit, control } = useForm();
+  console.log(variants);
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
-
     console.log(data);
 
     try {
       const formData = { ...data, variants };
 
       console.log(formData);
-      fetch("https://tech-server-vho67r390-abdulahaddf.vercel.app/phonex", {
+      fetch("https://tech-server-vho67r390-abdulahaddf.vercel.ap/phonex", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -31,13 +32,13 @@ const DataInput = () => {
           console.log(result);
           if (result.acknowledged) {
             Swal.fire("Phone has been successfully added");
-          }
-          else{
-              Swal.error("Something Went Wrong")
+            reset();
+          } else {
+            Swal.error("Something Went Wrong");
           }
         });
     } catch (error) {
-        Swal.error("Something Went Wrong")
+      Swal.error("Something Went Wrong");
       console.log(error);
     }
   };
@@ -51,119 +52,102 @@ const DataInput = () => {
           registerModel={register("model")}
         />
         {/* Image */}
-        <p>
-          *(Upload the photo to Drive then convert the shared link with
-          converter)
-        </p>
-        <TextInput type="text" label="Image URL" register={register("image")} />
-        <TextInput
-          type="text"
-          label="2nd Image"
-          register={register("image2")}
-        />
-        <TextInput
-          type="text"
-          label="3rd Image"
-          register={register("image3")}
-        />
-        <TextInput
-          type="text"
-          label="4th Image"
-          register={register("image4")}
-        />
+        <>
+          <p>
+            *(Upload the photo to Drive then convert the shared link with
+            converter & past the converted link here)
+          </p>
+          <TextArea
+            type="text"
+            label="Image URL"
+            register={register("image")}
+          />
+          <TextArea
+            type="text"
+            label="2nd Image"
+            register={register("image2")}
+          />
+          <TextArea
+            type="text"
+            label="3rd Image"
+            register={register("image3")}
+          />
+          <TextArea
+            type="text"
+            label="4th Image"
+            register={register("image4")}
+          />
+        </>
         {/* Launch */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Launch</legend>
-          <TextInput
+          <TextArea
             type="date"
             label="Announced"
             register={register("launch.announced")}
           />
           {/* <DynamicAttributes sectionName="display" /> */}
-          <TextInput
+          <TextArea
             type="date"
             label="Released"
             register={register("launch.released")}
           />
-          <TextInput label="Models" register={register("launch.models")} />
+          <TextArea label="Models" register={register("launch.models")} />
         </fieldset>
         {/* Body */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Body</legend>
-          <TextInput label="Colours" register={register("body.colours")} />
-          <TextInput
-            label="Dimensions"
-            register={register("body.dimensions")}
-          />
-          <TextInput label="Weight" register={register("body.weight")} />
-          <TextInput label="Build" register={register("body.build")} />
-          <TextInput
-            label="Waterproof"
-            register={register("body.waterproof")}
-          />
+          <TextArea label="Colours" register={register("body.colours")} />
+          <TextArea label="Dimensions" register={register("body.dimensions")} />
+          <TextArea label="Weight" register={register("body.weight")} />
+          <TextArea label="Build" register={register("body.build")} />
+          <TextArea label="Waterproof" register={register("body.waterproof")} />
 
-          <TextInput
-            label="Ruggedness"
-            register={register("body.ruggedness")}
-          />
+          <TextArea label="Ruggedness" register={register("body.ruggedness")} />
         </fieldset>
         {/* Chip */}
-        <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Chip</legend>
-          <TextInput label="OS" register={register("chip.os")} />
-          <TextInput label="UI" register={register("chip.ui")} />
-          <TextInput label="Chipset" register={register("chip.chipset")} />
-          <TextInput label="CPU" register={register("chip.cpu")} />
-          <TextInput label="GPU" register={register("chip.gpu")} />
-        </fieldset>
+        <ChipSection register={register} />
         {/* Network */}
-        <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Network</legend>
-          <TextInput label="SIM" register={register("network.sim")} />
-          <TextInput label="2G" register={register("network.2g")} />
-          <TextInput label="3G" register={register("network.3g")} />
-          <TextInput label="4G" register={register("network.4g")} />
-          <TextInput label="5G" register={register("network.5g")} />
-        </fieldset>
+        <NetworksSection register={register} />
         {/* main camera */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Main Camera</legend>
-          <TextInput
+          <TextArea
             label="Camera Setup"
             register={register("mainCamera.cameraSetup")}
           />
-          <TextInput
+          <TextArea
             label="Main Camera"
             register={register("mainCamera.main")}
           />
-          <TextInput
+          <TextArea
             label="Ultra Wide"
             register={register("mainCamera.ultraWide")}
           />
-          <TextInput
+          <TextArea
             label="Telephoto"
             register={register("mainCamera.telephoto")}
           />
-          <TextInput label="Zoom" register={register("mainCamera.zoom")} />
-          <TextInput
+          <TextArea label="Zoom" register={register("mainCamera.zoom")} />
+          <TextArea
             label="Autofocus"
             register={register("mainCamera.autofocus")}
           />
-          <TextInput label="OIS" register={register("mainCamera.ois")} />
-          <TextInput label="Flash" register={register("mainCamera.flash")} />
-          <TextInput
+          <TextArea label="OIS" register={register("mainCamera.ois")} />
+          <TextArea label="Flash" register={register("mainCamera.flash")} />
+          <TextArea
             label="Shooting Modes"
             register={register("mainCamera.shootingModes")}
           />
-          <TextInput
+          <TextArea
             label="Camera Features"
             register={register("mainCamera.cameraFeatures")}
           />
-          <TextInput
+          <TextArea
             label="Video Recording"
             register={register("mainCamera.videoRecording")}
           />
-          <TextInput
+          <TextArea
             label="Recording Features"
             register={register("mainCamera.recordingFeatures")}
           />
@@ -173,16 +157,13 @@ const DataInput = () => {
           <legend className="block text-xl font-bold mb-4">
             Selfie Camera
           </legend>
-          <TextInput
-            label="Camera"
-            register={register("selfieCamera.camera")}
-          />
-          <TextInput
+          <TextArea label="Camera" register={register("selfieCamera.camera")} />
+          <TextArea
             label="Autofocus"
             register={register("selfieCamera.autofocus")}
           />
-          <TextInput label="Flash" register={register("selfieCamera.flash")} />
-          <TextInput
+          <TextArea label="Flash" register={register("selfieCamera.flash")} />
+          <TextArea
             label="Video Recording"
             register={register("selfieCamera.videoRecording")}
           />
@@ -190,27 +171,30 @@ const DataInput = () => {
         {/* Display */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Display</legend>
-          <TextInput label="Type" register={register("display.type")} />
-          <TextInput label="Size" register={register("display.size")} />
-          <TextInput
+          <TextArea label="Type" register={register("display.type")} />
+          <TextArea label="Size" register={register("display.size")} />
+          <TextArea
             label="Resolution"
             register={register("display.resolution")}
           />
-          <TextInput
+          <TextArea
             label="Protection"
             register={register("display.protection")}
           />
-          <TextInput label="Others" register={register("display.others")} />
+          <TextArea label="Others" register={register("display.others")} />
         </fieldset>
         {/* Storage */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Storage</legend>
-          <TextInput label="Expandable Memory" register={register("storage.expandableMemory")} />
+          <TextArea
+            label="Expandable Memory"
+            register={register("storage.expandableMemory")}
+          />
           {/* <RadioButton
             label="Expandable Memory"
             register={register("storage.expandableMemory")}
           /> */}
-          <TextInput
+          <TextArea
             label="Internal Memory"
             register={register("storage.internalMemory")}
           />
@@ -218,22 +202,22 @@ const DataInput = () => {
         {/* Battery */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Battery</legend>
-          <TextInput label="Type" register={register("battery.type")} />
-          <TextInput
+          <TextArea label="Type" register={register("battery.type")} />
+          <TextArea
             label="Wireless Charging"
             register={register("battery.wirelessCharging")}
           />
-          <TextInput label="Charging" register={register("battery.charging")} />
+          <TextArea label="Charging" register={register("battery.charging")} />
         </fieldset>
         {/* Connectivity */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Connectivity</legend>
-          <TextInput label="WLAN" register={register("connectivity.wlan")} />
-          <TextInput
+          <TextArea label="WLAN" register={register("connectivity.wlan")} />
+          <TextArea
             label="Bluetooth"
             register={register("connectivity.bluetooth")}
           />
-          <TextInput
+          <TextArea
             label="Location"
             register={register("connectivity.location")}
           />
@@ -242,8 +226,8 @@ const DataInput = () => {
             label="Radio"
             register={register("connectivity.radio")}
           />
-          <TextInput label="USB" register={register("connectivity.usb")} />
-          <TextInput
+          <TextArea label="USB" register={register("connectivity.usb")} />
+          <TextArea
             label="Infrared port"
             register={register("connectivity.infrared")}
           />
@@ -254,7 +238,7 @@ const DataInput = () => {
         {/* Sound */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Sound</legend>
-          <TextInput
+          <TextArea
             label="Loudspeaker"
             register={register("sound.loudspeaker")}
           />
@@ -263,30 +247,27 @@ const DataInput = () => {
             label="3.5mm jack"
             register={register("connectivity.jack")}
           />
-          <TextInput
-            label="Audio Jack"
-            register={register("sound.audioJack")}
-          />
-          <TextInput label="Features" register={register("sound.features")} />
+          <TextArea label="Audio Jack" register={register("sound.audioJack")} />
+          <TextArea label="Features" register={register("sound.features")} />
         </fieldset>
         {/* Features */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Features</legend>
-          <TextInput
+          <TextArea
             label="Fingerprint Sensor"
             register={register("features.fingerprintSensor")}
           />
-          <TextInput
+          <TextArea
             label="Other Sensors"
             register={register("features.otherSensors")}
           />
-          <TextInput label="Others" register={register("features.others")} />
+          <TextArea label="Others" register={register("features.others")} />
         </fieldset>
         {/* Tests */}
         <fieldset className="mb-8">
           <legend className="block text-xl font-bold mb-4">Tests</legend>
-          <TextInput label="AnTuTu" register={register("tests.antutu")} />
-          <TextInput label="GeekBench" register={register("tests.geekbench")} />
+          <TextArea label="AnTuTu" register={register("tests.antutu")} />
+          <TextArea label="GeekBench" register={register("tests.geekbench")} />
         </fieldset>
         <AddVariant variants={variants} setVariants={setVariants} />
         <button
