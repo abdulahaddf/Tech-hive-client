@@ -58,7 +58,10 @@ const DriveLinkConverter = () => {
             value={inputUrl}
             onChange={(e) => setInputUrl(e.target.value)}
           />
-          <button className="btn-add btn-sm px-1 ml-2 " onClick={convertUrl}>
+          <button
+            className="border-2 border-black font-semibold px-2 rounded-md flex justify-end hover:bg-black hover:text-white mt-2 mx-auto"
+            onClick={convertUrl}
+          >
             Convert
           </button>
           {convertedUrl && (
