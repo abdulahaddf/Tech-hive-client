@@ -1,4 +1,5 @@
-import { useState } from "react";
+import JoditEditor from "jodit-react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import DriveLinkConverter from "../../components/Converter/DriveLinkConverter";
@@ -9,20 +10,23 @@ import ChipSection from "../../components/Sections/ChipSection";
 import NetworksSection from "../../components/Sections/NetworksSection";
 
 const DataInput = () => {
+  const editor = useRef(null);
+  const [content, setContent] = useState("");
+  console.log(content);
   const [variants, setVariants] = useState([
     { ram: "", storage: "", rupee: "", dollar: "", pound: "", euro: "" },
   ]);
-  console.log(variants);
+  // console.log(variants);
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
 
     try {
-      const formData = { ...data, variants };
+      const formData = { ...data, variants, content };
 
       console.log(formData);
-      fetch("https://tech-server-vho67r390-abdulahaddf.vercel.ap/phonex", {
+      fetch("https://tech-server-vho67r390-abdulahaddf.vercel.app/phonex", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -211,7 +215,9 @@ const DataInput = () => {
         </fieldset>
         {/* Connectivity */}
         <fieldset className="mb-8">
-          <legend className="block text-2xl font-bold mb-4">Connectivity</legend>
+          <legend className="block text-2xl font-bold mb-4">
+            Connectivity
+          </legend>
           <TextArea label="WLAN" register={register("connectivity.wlan")} />
           <TextArea
             label="Bluetooth"
@@ -262,6 +268,7 @@ const DataInput = () => {
             register={register("features.otherSensors")}
           />
           <TextArea label="Others" register={register("features.others")} />
+          <TextArea label="In The Box" register={register("inBox")} />
         </fieldset>
         {/* Tests */}
         <fieldset className="mb-8">
@@ -269,11 +276,27 @@ const DataInput = () => {
           <TextArea label="AnTuTu" register={register("tests.antutu")} />
           <TextArea label="GeekBench" register={register("tests.geekbench")} />
         </fieldset>
+
         <fieldset className="mb-8">
-          <legend className="block text-2xl font-bold mb-4">Price & Variants</legend>
-        <AddVariant variants={variants} setVariants={setVariants} />
-         
+          <legend className="block text-2xl font-bold mb-4">
+            Price & Variants
+          </legend>
+          <AddVariant variants={variants} setVariants={setVariants} />
         </fieldset>
+        <fieldset className="mb-8">
+          <legend className="block text-2xl font-bold mb-4">
+            Summary & Review
+          </legend>
+          <JoditEditor
+            ref={editor}
+            value={content}
+            // config={config}
+            tabIndex={1} // tabIndex of textarea
+            onChange={(newContent) => setContent(newContent)}
+            // onBlur={newContent => {}}
+          />
+        </fieldset>
+
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

@@ -48,6 +48,7 @@ const AddVariant = ({ variants, setVariants }) => {
         <div key={index} className="mb-6">
           <div className="flex gap-5 my-5">
             <select
+            required
               id={`ram${index}`}
               name={`variants[${index}].ram`}
               className="text-input"
@@ -65,6 +66,7 @@ const AddVariant = ({ variants, setVariants }) => {
             </select>
 
             <select
+              required
               id={`storage${index}`}
               name={`variants[${index}].storage`}
               className="text-input"
