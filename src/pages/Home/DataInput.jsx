@@ -10,7 +10,7 @@ import NetworksSection from "../../components/Sections/NetworksSection";
 
 const DataInput = () => {
   const [variants, setVariants] = useState([
-    { variant: "", rupee: "", dollar: "", pound: "", euro: "" },
+    { ram: "", storage: "", rupee: "", dollar: "", pound: "", euro: "" },
   ]);
   console.log(variants);
   const { register, handleSubmit, reset } = useForm();

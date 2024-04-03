@@ -1,14 +1,16 @@
 import React from 'react';
-import { useFieldArray } from 'react-hook-form';
+import { Form, useFieldArray } from 'react-hook-form';
 
 const DynamicAttributes = ({ control, sectionName }) => {
   const { fields, append, remove } = useFieldArray({
     control,
     name: `${sectionName}.attributes`, // Use the provided sectionName to construct the field name
   });
-
+const handleSubmit = (data) => {
+console.log(data);
+}
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       {fields.map((field, index) => (
         <div key={field.id} className="flex items-center mb-2">
           <input
@@ -32,7 +34,8 @@ const DynamicAttributes = ({ control, sectionName }) => {
       <button onClick={() => append({ value: '', attribute: '' })} className="bg-blue-500 text-white px-2 py-1 rounded">
         +
       </button>
-    </div>
+      <button type='submit'>Submit</button>
+    </form>
   );
 };
 
