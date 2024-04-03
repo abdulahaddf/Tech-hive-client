@@ -80,7 +80,7 @@ const DataInput = () => {
         </>
         {/* Launch */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Launch</legend>
+          <legend className="block text-2xl font-bold mb-4">Launch</legend>
           <TextArea
             type="date"
             label="Announced"
@@ -96,7 +96,7 @@ const DataInput = () => {
         </fieldset>
         {/* Body */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Body</legend>
+          <legend className="block text-2xl font-bold mb-4">Body</legend>
           <TextArea label="Colours" register={register("body.colours")} />
           <TextArea label="Dimensions" register={register("body.dimensions")} />
           <TextArea label="Weight" register={register("body.weight")} />
@@ -111,7 +111,7 @@ const DataInput = () => {
         <NetworksSection register={register} />
         {/* main camera */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Main Camera</legend>
+          <legend className="block text-2xl font-bold mb-4">Main Camera</legend>
           <TextArea
             label="Camera Setup"
             register={register("mainCamera.cameraSetup")}
@@ -154,7 +154,7 @@ const DataInput = () => {
         </fieldset>
         {/* Selfie Camera */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">
+          <legend className="block text-2xl font-bold mb-4">
             Selfie Camera
           </legend>
           <TextArea label="Camera" register={register("selfieCamera.camera")} />
@@ -170,7 +170,7 @@ const DataInput = () => {
         </fieldset>
         {/* Display */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Display</legend>
+          <legend className="block text-2xl font-bold mb-4">Display</legend>
           <TextArea label="Type" register={register("display.type")} />
           <TextArea label="Size" register={register("display.size")} />
           <TextArea
@@ -185,7 +185,7 @@ const DataInput = () => {
         </fieldset>
         {/* Storage */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Storage</legend>
+          <legend className="block text-2xl font-bold mb-4">Storage</legend>
           <TextArea
             label="Expandable Memory"
             register={register("storage.expandableMemory")}
@@ -201,7 +201,7 @@ const DataInput = () => {
         </fieldset>
         {/* Battery */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Battery</legend>
+          <legend className="block text-2xl font-bold mb-4">Battery</legend>
           <TextArea label="Type" register={register("battery.type")} />
           <TextArea
             label="Wireless Charging"
@@ -211,7 +211,7 @@ const DataInput = () => {
         </fieldset>
         {/* Connectivity */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Connectivity</legend>
+          <legend className="block text-2xl font-bold mb-4">Connectivity</legend>
           <TextArea label="WLAN" register={register("connectivity.wlan")} />
           <TextArea
             label="Bluetooth"
@@ -237,7 +237,7 @@ const DataInput = () => {
         </fieldset>
         {/* Sound */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Sound</legend>
+          <legend className="block text-2xl font-bold mb-4">Sound</legend>
           <TextArea
             label="Loudspeaker"
             register={register("sound.loudspeaker")}
@@ -252,7 +252,7 @@ const DataInput = () => {
         </fieldset>
         {/* Features */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Features</legend>
+          <legend className="block text-2xl font-bold mb-4">Features</legend>
           <TextArea
             label="Fingerprint Sensor"
             register={register("features.fingerprintSensor")}
@@ -265,11 +265,15 @@ const DataInput = () => {
         </fieldset>
         {/* Tests */}
         <fieldset className="mb-8">
-          <legend className="block text-xl font-bold mb-4">Tests</legend>
+          <legend className="block text-2xl font-bold mb-4">Tests</legend>
           <TextArea label="AnTuTu" register={register("tests.antutu")} />
           <TextArea label="GeekBench" register={register("tests.geekbench")} />
         </fieldset>
+        <fieldset className="mb-8">
+          <legend className="block text-2xl font-bold mb-4">Price & Variants</legend>
         <AddVariant variants={variants} setVariants={setVariants} />
+         
+        </fieldset>
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

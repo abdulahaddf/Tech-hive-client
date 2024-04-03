@@ -43,52 +43,51 @@ const AddVariant = ({ variants, setVariants }) => {
   };
 
   return (
-    <div className="max-w-md mx-auto my-10 mb-52">
+    <div className="max-w-4xl mx-auto my-10 mb-52">
       {variants.map((variant, index) => (
         <div key={index} className="mb-6">
-          <label
-            htmlFor={`ram${index}`}
-            className="text-sm font-medium text-gray-700 w-32"
-          >
-            Select RAM:
-          </label>
-          <select
-            id={`ram${index}`}
-            name={`variants[${index}].ram`}
-            className="text-input"
-            value={variant.ram}
-            onChange={(e) => handleVariantChange(e.target.value, index, "ram")}
-          >
-            <option value="">Select RAM</option>
-            {RAM_OPTIONS.map((ramOption, idx) => (
-              <option key={idx} value={ramOption}>
-                {ramOption}
-              </option>
-            ))}
-          </select>
+          <div className="flex gap-5 my-5">
+            <select
+              id={`ram${index}`}
+              name={`variants[${index}].ram`}
+              className="text-input"
+              value={variant.ram}
+              onChange={(e) =>
+                handleVariantChange(e.target.value, index, "ram")
+              }
+            >
+              <option value="">Select RAM</option>
+              {RAM_OPTIONS.map((ramOption, idx) => (
+                <option key={idx} value={ramOption}>
+                  {ramOption}
+                </option>
+              ))}
+            </select>
 
-          <label
-            htmlFor={`storage${index}`}
-            className="text-sm font-medium text-gray-700 w-32"
-          >
-            Select Storage:
-          </label>
-          <select
-            id={`storage${index}`}
-            name={`variants[${index}].storage`}
-            className="text-input"
-            value={variant.storage}
-            onChange={(e) =>
-              handleVariantChange(e.target.value, index, "storage")
-            }
-          >
-            <option value="">Select Storage</option>
-            {STORAGE_OPTIONS.map((storageOption, idx) => (
-              <option key={idx} value={storageOption}>
-                {storageOption}
-              </option>
-            ))}
-          </select>
+            <select
+              id={`storage${index}`}
+              name={`variants[${index}].storage`}
+              className="text-input"
+              value={variant.storage}
+              onChange={(e) =>
+                handleVariantChange(e.target.value, index, "storage")
+              }
+            >
+              <option value="">Select Storage</option>
+              {STORAGE_OPTIONS.map((storageOption, idx) => (
+                <option key={idx} value={storageOption}>
+                  {storageOption}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={() => handleRemoveVariant(index)}
+              className="bg-red-600 text-white px-3 py-1 rounded"
+            >
+              Remove
+            </button>
+          </div>
 
           <div className="mt-4 flex items-center gap-5">
             <label
@@ -165,20 +164,13 @@ const AddVariant = ({ variants, setVariants }) => {
               }
             />
           </div>
-          <button
-            type="button"
-            onClick={() => handleRemoveVariant(index)}
-            className="mt-4 flex items-center gap-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-          >
-            x
-          </button>
         </div>
       ))}
 
       <button
         type="button"
         onClick={handleAddVariant}
-        className="mt-4 flex items-center gap-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-5"
+        className="bg-green-600 text-white px-3 py-1 rounded"
       >
         + Add variant
       </button>
