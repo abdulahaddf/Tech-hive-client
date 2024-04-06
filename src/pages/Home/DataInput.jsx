@@ -4,15 +4,16 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import DriveLinkConverter from "../../components/Converter/DriveLinkConverter";
 import MobileSelector from "../../components/Form/MobileSelector";
-import { RadioButton, TextArea } from "../../components/Form/Warper";
+import { RadioButton, TextArea, TextInput } from "../../components/Form/Warper";
 import AddVariant from "../../components/Sections/AddVarients";
 import ChipSection from "../../components/Sections/ChipSection";
 import NetworksSection from "../../components/Sections/NetworksSection";
 
 const DataInput = () => {
   const editor = useRef(null);
-  const [content, setContent] = useState("");
-  console.log(content);
+  const [summary, setSummary] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const [variants, setVariants] = useState([
     { ram: "", storage: "", rupee: "", dollar: "", pound: "", euro: "" },
   ]);
@@ -20,30 +21,39 @@ const DataInput = () => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading(true);
     console.log(data);
 
     try {
-      const formData = { ...data, variants, content };
+      const formData = { ...data, variants, summary };
 
       console.log(formData);
-      fetch("https://tech-server-vho67r390-abdulahaddf.vercel.app/phonex", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
-        .then((res) => res.json())
-        .then((result) => {
-          console.log(result);
-          if (result.acknowledged) {
-            Swal.fire("Phone has been successfully added");
-            reset();
-          } else {
-            Swal.error("Something Went Wrong");
-          }
-        });
+      const response = await fetch(
+        "https://tech-server-sooty.vercel.app/addPhone",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const result = await response.json();
+      console.log(result);
+
+      if (result.acknowledged) {
+        setLoading(false);
+        Swal.fire("Phone has been successfully added");
+        reset();
+        setSummary("");
+        setVariants([]);
+      } else {
+        setLoading(false);
+        Swal.fire("Something Went Wrong");
+      }
     } catch (error) {
-      Swal.error("Something Went Wrong");
-      console.log(error);
+      setLoading(false);
+      console.error(error);
+      Swal.fire("Something Went Wrong");
     }
   };
 
@@ -61,22 +71,22 @@ const DataInput = () => {
             *(Upload the photo to Drive then convert the shared link with
             converter & past the converted link here)
           </p>
-          <TextArea
+          <TextInput
             type="text"
             label="Image URL"
             register={register("image")}
           />
-          <TextArea
+          <TextInput
             type="text"
             label="2nd Image"
             register={register("image2")}
           />
-          <TextArea
+          <TextInput
             type="text"
             label="3rd Image"
             register={register("image3")}
           />
-          <TextArea
+          <TextInput
             type="text"
             label="4th Image"
             register={register("image4")}
@@ -85,13 +95,13 @@ const DataInput = () => {
         {/* Launch */}
         <fieldset className="mb-8">
           <legend className="block text-2xl font-bold mb-4">Launch</legend>
-          <TextArea
+          <TextInput
             type="date"
             label="Announced"
             register={register("launch.announced")}
           />
           {/* <DynamicAttributes sectionName="display" /> */}
-          <TextArea
+          <TextInput
             type="date"
             label="Released"
             register={register("launch.released")}
@@ -276,33 +286,48 @@ const DataInput = () => {
           <TextArea label="AnTuTu" register={register("tests.antutu")} />
           <TextArea label="GeekBench" register={register("tests.geekbench")} />
         </fieldset>
-
         <fieldset className="mb-8">
           <legend className="block text-2xl font-bold mb-4">
             Price & Variants
           </legend>
           <AddVariant variants={variants} setVariants={setVariants} />
         </fieldset>
-        <fieldset className="mb-8">
+        <fieldset className="mb-36">
           <legend className="block text-2xl font-bold mb-4">
             Summary & Review
           </legend>
           <JoditEditor
             ref={editor}
-            value={content}
+            value={summary}
             // config={config}
             tabIndex={1} // tabIndex of textarea
-            onChange={(newContent) => setContent(newContent)}
+            onChange={(newContent) => setSummary(newContent)}
             // onBlur={newContent => {}}
           />
         </fieldset>
-
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="py-2 px-4 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg max-w-md mx-auto"
         >
-          Submit
+          {loading ? (
+            <>
+              <svg
+                width="20"
+                height="20"
+                fill="currentColor"
+                className="mr-2 animate-spin"
+                viewBox="0 0 1792 1792"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"></path>
+              </svg>
+              Submitting{" "}
+            </>
+          ) : (
+            <>Submit Info</>
+          )}
         </button>
+        ;
       </form>
     </div>
   );

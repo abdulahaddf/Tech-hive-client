@@ -43,12 +43,12 @@ const AddVariant = ({ variants, setVariants }) => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-10 mb-52">
+    <div className="max-w-4xl mx-auto my-10 ">
       {variants.map((variant, index) => (
         <div key={index} className="mb-6">
           <div className="flex gap-5 my-5">
             <select
-            required
+              required
               id={`ram${index}`}
               name={`variants[${index}].ram`}
               className="text-input"

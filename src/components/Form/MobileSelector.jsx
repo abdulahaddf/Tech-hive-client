@@ -33,6 +33,7 @@ const MobileSelector = ({ registerBrand, registerModel }) => {
         <select
           {...registerBrand}
           onChange={handleBrandChange}
+          required
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         >
           <option value="">--Please select a brand--</option>
@@ -52,6 +53,7 @@ const MobileSelector = ({ registerBrand, registerModel }) => {
           <select
             {...registerModel}
             onChange={handleModelChange}
+            required
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           >
             <option value="">--Please select a Model--</option>
